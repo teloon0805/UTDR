@@ -1,4 +1,4 @@
-# Underwater Perception Lab
+# Underwater Target Detection and Recognition
 
 > 水下目标识别与检测一体化学习与研究记录
 
