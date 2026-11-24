@@ -1,0 +1,28 @@
+# 学习日志
+
+[← 返回首页](../README.md)
+
+每一天围绕一个问题学习。先写自己的解释，再用资料、图示或小实验检查它。
+
+<!-- LEARNING:INDEX:START -->
+| 日期 | 学习主题 | 记录状态 |
+| --- | --- | --- |
+| 2026-11-24 | [泛化：为什么我选择模型 B](2026/2026-11-24.md) | 已整理 |
+| 2026-11-16 | [图片为什么是数组](2026/2026-11-16.md) | 已整理 |
+<!-- LEARNING:INDEX:END -->
+
+“已整理”表示笔记已整理成文；是否掌握一个主题，以笔记中的回答与验证为依据。
+
+## 怎么更新
+
+```powershell
+python scripts/new_entry.py --topic "今天的问题"
+```
+
+填写新生成的文件，将 `status` 从 `draft` 改为 `recorded` 后，执行：
+
+```powershell
+python scripts/new_entry.py --refresh
+```
+
+脚本会同步更新本页索引和首页最近三篇记录。具体用法见[维护说明](../docs/maintenance.md)。
