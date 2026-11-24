@@ -60,10 +60,10 @@ git push origin main
 
 ## 图片维护
 
-封面与泛化概念图的源代码在 `scripts/build_visuals.py`。依赖 Pillow、NumPy、Matplotlib，当前学习环境已安装。重新生成时执行：
+裁剪动图和静态图由 `scripts/build_visuals.py` 生成，使用 Pillow 和仓库里附有许可的 DM Mono 字体。
 
 ```powershell
 python scripts/build_visuals.py
 ```
 
-图中文字采用随仓库保留许可的开源字体；泛化图也可使用系统中文字体。视觉说明见[设计记录](design.md)。
+封面摄影署名和图片来源见[素材说明](design.md)。

@@ -74,16 +74,18 @@ def refresh(root=ROOT):
     records = entries(root)
     recorded = sum(entry["status"] == "recorded" for entry in records)
     drafts = len(records) - recorded
-    latest = str(records[0]["date"]) if records else "—"
-    summary = (
-        "| 已整理学习记录 | 记录草稿 | 最近记录 |\n"
-        "| :---: | :---: | :---: |\n"
-        f"| **{recorded} 篇** | **{drafts} 篇** | **{latest}** |"
-    )
+    latest = f"最近记录 {records[0]['date']} · " if records else ""
+    draft_count = f" · {drafts} 篇草稿" if drafts else ""
+    summary = f"*{latest}{recorded} 篇笔记{draft_count}*"
+    recent = []
+    for entry in records[:3]:
+        path = entry["path"].relative_to(root).as_posix()
+        status = "（草稿）" if entry["status"] == "draft" else ""
+        recent.append(f"- {entry['date']} · [{table_text(entry['title'])}]({path}){status}")
     homepage = root / "README.md"
     journal = root / "journal" / "README.md"
     home_text = replace_section(homepage.read_text(encoding="utf-8"), "SUMMARY", summary)
-    home_text = replace_section(home_text, "RECENT", index_table(records[:3], root))
+    home_text = replace_section(home_text, "RECENT", "\n".join(recent) or "等待第一篇记录。")
     journal_text = replace_section(
         journal.read_text(encoding="utf-8"), "INDEX", index_table(records, root / "journal")
     )
