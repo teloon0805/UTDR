@@ -25,3 +25,13 @@
 裁剪动图取自第一课的灰度数组，播放一次后停在最后一帧。相同内容可查看[静态图](../assets/images/array-crop.png)，生成代码见 [build_visuals.py](../scripts/build_visuals.py)。
 
 动图使用 DM Mono 字体。[字体许可](../assets/fonts/DMMono-OFL.txt)
+
+## 损失曲线教学图
+
+[参数与损失图](../assets/images/parameter-loss.png)由公式 `L = (2w - 6)²` 生成。两幅图使用相同坐标范围，对比从同一个起点进行不同幅度的参数调整，属于单样本教学示意，不是实际训练曲线。
+
+生成代码见 [plot_parameter_loss.py](../scripts/plot_parameter_loss.py)，依赖 matplotlib（已列在 [numpy_basic/requirements.txt](../numpy_basic/requirements.txt)），中文标签使用系统中文字体，如微软雅黑或 Noto Sans CJK SC。
+
+```powershell
+python scripts/plot_parameter_loss.py
+```
