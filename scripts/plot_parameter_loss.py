@@ -83,6 +83,57 @@ def main():
     fig.savefig(OUTPUT, dpi=160, facecolor=fig.get_facecolor())
     plt.close(fig)
     print(f"Saved: {OUTPUT}")
+    plot_gradient_direction(values, losses)
+
+
+def plot_gradient_direction(values, losses):
+    """标出两个位置的局部斜率与减小损失的更新方向。"""
+    fig, ax = plt.subplots(figsize=(10.8, 4.8))
+    fig.patch.set_facecolor(COLORS["background"])
+    ax.set_facecolor(COLORS["background"])
+    ax.plot(values, losses, color=COLORS["curve"], linewidth=2.5)
+
+    for position, endpoint, accent, marker, label_x, title, explanation in [
+        (2, 2.5, COLORS["small_step"], "o", 1.4, "梯度为负", "向右：增大参数 w"),
+        (4, 3.5, COLORS["large_step"], "D", 3.45, "梯度为正", "向左：减小参数 w"),
+    ]:
+        loss = (2 * position - 6) ** 2
+        slope = 8 * position - 24
+        tangent_x = [position - 0.4, position + 0.4]
+        tangent_y = [loss + slope * (value - position) for value in tangent_x]
+        ax.plot(tangent_x, tangent_y, linestyle="--", color=accent, linewidth=1.8)
+        ax.scatter([position], [loss], color=accent, marker=marker, s=85, zorder=5)
+        ax.annotate("", xy=(endpoint, (2 * endpoint - 6) ** 2), xytext=(position, loss),
+                    arrowprops={"arrowstyle": "->", "color": accent, "linewidth": 2.5,
+                                "connectionstyle": "arc3,rad=0.08", "shrinkA": 8})
+        ax.text(label_x, 15.5, title, fontsize=15, fontweight="bold", color=accent)
+        ax.text(label_x, 13.5, explanation, fontsize=12, color=accent)
+
+    ax.scatter([3], [0], s=42, color=COLORS["ink"], zorder=5)
+    ax.annotate("本例最低点", (3, 0), xytext=(0, 28), ha="center",
+                textcoords="offset points", color=COLORS["muted"],
+                arrowprops={"arrowstyle": "-", "color": COLORS["guide"]})
+    ax.set_title("梯度与更新方向", loc="left", fontsize=16, fontweight="bold", pad=20)
+    ax.set_xlabel("参数 w（向右增大）", labelpad=8)
+    ax.set_ylabel("损失 L", labelpad=10)
+    ax.set_xlim(0.8, 5.2)
+    ax.set_ylim(-1, 20)
+    ax.set_xticks([1, 2, 3, 4, 5])
+    ax.set_yticks([0, 4, 8, 12, 16, 20])
+    ax.grid(axis="y", color=COLORS["grid"], linewidth=0.7)
+    ax.set_axisbelow(True)
+    ax.spines[["top", "right"]].set_visible(False)
+    ax.spines[["bottom", "left"]].set_color(COLORS["guide"])
+    ax.tick_params(length=0, pad=6)
+    fig.text(0.065, 0.065, "虚线：当前位置的切线    箭头：减小损失的更新方向",
+             color=COLORS["muted"], fontsize=10)
+    fig.text(0.065, 0.02, "教学示意 · L = (2w − 6)²；图示为局部更新方向，实际更新仍需合适步长。",
+             color=COLORS["muted"], fontsize=10)
+    fig.subplots_adjust(left=0.08, right=0.97, top=0.85, bottom=0.23)
+    target = ROOT / "assets/images/gradient-direction.png"
+    fig.savefig(target, dpi=160, facecolor=fig.get_facecolor())
+    plt.close(fig)
+    print(f"Saved: {target}")
 
 
 if __name__ == "__main__":

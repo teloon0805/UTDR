@@ -45,6 +45,8 @@
 
 [参数与损失图](../assets/images/parameter-loss.png)由公式 `L = (2w - 6)²` 生成。两幅图使用相同坐标范围，对比从同一个起点进行不同幅度的参数调整，属于单样本教学示意，不是实际训练曲线。
 
+[梯度方向图](../assets/images/gradient-direction.png)沿用同一公式，标出两个位置的切线以及减小损失的局部更新方向，用圆点与菱形辅助区分。
+
 生成代码见 [plot_parameter_loss.py](../scripts/plot_parameter_loss.py)，依赖 matplotlib（已列在 [numpy_basic/requirements.txt](../numpy_basic/requirements.txt)），中文标签使用系统中文字体，如微软雅黑或 Noto Sans CJK SC。
 
 ```powershell
